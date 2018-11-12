@@ -2,58 +2,62 @@ package com.example.estacio.myapplication;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextPaint;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
-    EditText editGasolina;
-    EditText editAlcool;
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView resultview;
-Button botao;
 
+    private EditText mEditAlcool;
+    private EditText mEditGasolina;
+    private Button mBtnCalculate;
+    private TextView mTextResult;
+    private TextView mMainTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        editGasolina = findViewById(R.id.editGasolina);
-        editAlcool = findViewById(R.id.editAlcool);
-            resultview = findViewById(R.id.textViewMainTitle);
-        botao = findViewById(R.id.btnCalc);
-        botao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                try{
-                    Double result = Double.valueOf(editGasolina.getText().toString());
-                    resultview.setText(String.valueOf(result+1));
-
-                } catch (NumberFormatException e ){
-
-                    Toast.makeText(getApplicationContext(), "Zica", Toast.LENGTH_LONG).show();
+        mMainTitle = findViewById(R.id.textViewMainTitle);
+        mEditAlcool = findViewById(R.id.editAlcool);
+        mEditGasolina = findViewById(R.id.editGasolina);
+        mBtnCalculate = findViewById(R.id.btnCalc);
+        mTextResult = findViewById(R.id.textResult);
 
 
-werwerwerwer
-
-                    sdasfsdf
-                }
-
-
-
-            }
-        });
-
-
-
+        mBtnCalculate.setOnClickListener(this);
 
 
     }
+
+
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+
+
+        if(id == R.id.btnCalc)
+            calculate(Double.valueOf(mEditAlcool.getText().toString()),
+                    Double.valueOf(mEditGasolina.getText().toString()));
+
+
+    }
+
+
+    private void calculate(double alcoolValue, double gasolinaValue) {
+        if(alcoolValue * 0.7 >= gasolinaValue) {
+            mTextResult.setText("Álcool");
+        } else {
+            mTextResult.setText("Gasolina");
+        }
+
+    }
+
+
 }
-
-
